@@ -1,0 +1,44 @@
+{
+  "name": "google-drive-manager",
+  "version": "1.0.0",
+  "description": "Simple file management in personal Google Drive using OAuth 2.0.",
+  "module": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/php-bread-and-butter/google-drive-manager.git"
+  },
+  "keywords": [
+    "Simple File Management",
+    "Google Drive",
+    "Webpack",
+    "OAuth"
+  ],
+  "author": "Subhadeep Chowdhury<ch.subhadeep@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/php-bread-and-butter/google-drive-manager",
+  "devDependencies": {
+    "autoprefixer": "^10.2.6",
+    "clean-webpack-plugin": "*",
+    "css-loader": "^5.2.6",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.6.0",
+    "postcss": "^8.3.5",
+    "postcss-loader": "^6.1.0",
+    "precss": "^4.0.0",
+    "sass": "^1.35.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.39.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.8.0"
+  }
+}

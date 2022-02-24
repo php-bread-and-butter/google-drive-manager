@@ -1,0 +1,141 @@
+//
+// Base styles
+//
+.google-drive-modal {
+    
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0; // See https://github.com/twbs/bootstrap/pull/22740#issuecomment-305868106
+        height: $card-height;
+        word-wrap: break-word;
+        background-color: $card-bg;
+        background-clip: border-box;
+        border: $card-border-width solid $card-border-color;
+        border-radius: .25rem;
+        
+        > hr {
+            margin-right: 0;
+            margin-left: 0;
+        }
+        
+        > .list-group {
+            border-top: inherit;
+            border-bottom: inherit;
+            
+            &:first-child {
+                border-top-width: 0;
+            }
+            
+            &:last-child  {
+                border-bottom-width: 0;
+            }
+        }
+        
+        // Due to specificity of the above selector (`.card > .list-group`), we must
+        // use a child selector here to prevent double borders.
+        > .card-header + .list-group,
+        > .list-group + .card-footer {
+            border-top: 0;
+        }
+    }
+    
+    .card-body {
+        // Enable `flex-grow: 1` for decks and groups so that card blocks take up
+        // as much space as possible, ensuring footers are aligned to the bottom.
+        flex: 1 1 auto;
+        padding: $card-spacer-y $card-spacer-x;
+        color: $card-color;
+    }
+    
+    .card-title {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    
+    .card-text:last-child {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    
+    .card-link {
+        &:hover {
+            text-decoration: none;
+        }
+        
+        + .card-link {
+            margin-left: $card-spacer-x;
+        }
+    }
+    
+    //
+    // Optional textual caps
+    //
+    
+    .card-header {
+        padding: $card-cap-padding-y $card-cap-padding-x;
+        margin-bottom: 0; // Removes the default margin-bottom of <hN>
+        color: $card-cap-color;
+        background-color: $card-cap-bg;
+        border-bottom: $card-border-width solid $card-border-color;
+        
+    }
+    
+    .card-footer {
+        padding: $card-cap-padding-y $card-cap-padding-x;
+        color: $card-cap-color;
+        background-color: $card-cap-bg;
+        border-top: $card-border-width solid $card-border-color;
+        
+    }
+    
+    
+    //
+    // Header navs
+    //
+    
+    .card-header-tabs {
+        
+        margin-bottom: -$card-cap-padding-y;
+        border-bottom: 0;
+        
+        @if $nav-tabs-link-active-bg != $card-bg {
+            .nav-link.active {
+                background-color: $card-bg;
+                border-bottom-color: $card-bg;
+            }
+        }
+    }
+    
+    // Card image
+    .card-img-overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: $card-img-overlay-padding;
+    }
+    
+    .card-img,
+    .card-img-top,
+    .card-img-bottom {
+        width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
+    }
+    
+    
+    //
+    // Card groups
+    //
+    
+    .card-group {
+        // The child selector allows nested `.card` within `.card-group`
+        // to display properly.
+        > .card {
+            margin-bottom: $card-group-margin;
+        }
+        
+    }
+    
+}

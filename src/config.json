@@ -1,0 +1,10 @@
+{
+    "CLIENT_ID" : "4881486512-u9r4n8320cpfelrf05ru73fglfr82rg9.apps.googleusercontent.com",
+    "CLIENT_SECRET" : "t3Ynmt6-cunmJXxnOH6dANn9",
+    "API_KEY" : "AIzaSyBWkttOdrSSostZi0LEzRbo9_Y-Eo1CcDY",
+    "API_URL" : "https://apis.google.com/js/api.js",
+    "DISCOVERY_DOCS" : ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+    "SCOPES" : "https://www.googleapis.com/auth/drive",
+    "UPLOAD_API_URL" : "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable",
+    "FOLDER_NAME" : "Student"
+}

@@ -1,0 +1,333 @@
+// .modal-open      - body class for killing the scroll
+// .modal           - container to scroll within
+// .modal-dialog    - positioning shell for the actual modal
+// .modal-content   - actual modal w/ bg and corners and stuff
+
+
+// Container that the modal scrolls within
+.google-drive-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $zindex-modal;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+    // Shell div to position the modal with bottom padding
+    .modal-dialog {
+        position: relative;
+        width: auto;
+        margin: $modal-dialog-margin;
+        // allow clicks to pass through for custom click handling to close modal
+        pointer-events: none;
+    }
+    
+    .modal-dialog-scrollable {
+        height: subtract(100%, $modal-dialog-margin * 2);
+        
+        .modal-content {
+            max-height: 100%;
+            overflow: hidden;
+        }
+        
+        .modal-body {
+            overflow-y: auto;
+        }
+    }
+    
+    .modal-dialog-centered {
+        display: flex;
+        align-items: center;
+        min-height: subtract(100%, $modal-dialog-margin * 2);
+    }
+    
+    // Actual modal
+    .modal-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%; // Ensure `.modal-content` extends the full width of the parent `.modal-dialog`
+        // counteract the pointer-events: none; in the .modal-dialog
+        color: $modal-content-color;
+        pointer-events: auto;
+        background-color: $modal-content-bg;
+        background-clip: padding-box;
+        border: $modal-content-border-width solid $modal-content-border-color;
+        // Remove focus outline from opened modal
+        outline: 0;
+    }
+    
+    // Modal header
+    // Top section of the modal w/ title and dismiss
+    .modal-header {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: space-between; // Put modal header elements (title and dismiss) on opposite ends
+        padding: $modal-header-padding;
+        border-bottom: $modal-header-border-width solid $modal-header-border-color;
+        
+        .btn-close {
+            box-sizing: content-box;
+            width: 1em;
+            height: 1em;
+            padding: .25em .25em;
+            color: #000;
+            background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+            border: 0;
+            border-radius: .25rem;
+            opacity: .5;
+            cursor: pointer;
+        }
+    }
+    
+    // Title text within header
+    .modal-title {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: $modal-title-line-height;
+    }
+    
+    // Modal body
+    // Where all modal content resides (sibling of .modal-header and .modal-footer)
+    .modal-body {
+        position: relative;
+        // Enable `flex-grow: 1` so that the body take up as much space as possible
+        // when there should be a fixed height on `.modal-dialog`.
+        flex: 1 1 auto;
+        padding: $modal-inner-padding;
+    }
+    
+    // Footer (for actions)
+    .modal-footer {
+        display: flex;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+        align-items: center; // vertically center
+        justify-content: flex-end; // Right align buttons with flex property because text-align doesn't work on flex items
+        border-top: $modal-footer-border-width solid $modal-footer-border-color;
+        
+    }
+    .modal-fullscreen {
+        width:100vw;
+        max-width:none;
+        height:100%;
+        margin:0
+    }
+    .modal-fullscreen .modal-content {
+        height:100%;
+        border:0;
+        border-radius:0
+    }
+    .modal-fullscreen .modal-header {
+        border-radius:0
+    }
+    .modal-fullscreen .modal-body {
+        overflow-y:auto
+    }
+    .modal-fullscreen .modal-footer {
+        border-radius:0
+    }
+}
+// Shell div to position the modal with bottom padding
+.modal-dialog {
+    
+    // When fading in the modal, animate it to slide down
+    .google-drive-modal.fade & {
+        -webkit-transform: scale(0.1);
+        -moz-transform: scale(0.1);
+        -ms-transform: scale(0.1);
+        transform: scale(0.1);
+        top: 300px;
+        opacity: 0;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+    .google-drive-modal.show & {
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform: translate3d(0, -300px, 0);
+        transform: translate3d(0, -300px, 0);
+        opacity: 1;
+    }
+    
+    // When trying to close, animate focus to scale
+    .google-drive-modal.modal-static & {
+        transform: $modal-scale-transform;
+    }
+}
+
+// Modal background
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $zindex-modal-backdrop;
+    width: 100vw;
+    height: 100vh;
+    background-color: $modal-backdrop-bg;
+    
+    // Fade for backdrop
+    &.fade { opacity: 0; }
+    &.show { opacity: $modal-backdrop-opacity; }
+}
+
+@media(min-width: 576px) {
+    .google-drive-modal {
+        .modal-dialog {
+            max-width:500px;
+            margin:1.75rem auto
+        }
+        .modal-dialog-scrollable {
+            height:calc(100% - 3.5rem)
+        }
+        .modal-dialog-centered {
+            min-height:calc(100% - 3.5rem)
+        }
+        .modal-sm {
+            max-width:300px
+        }
+    }
+}
+@media(min-width: 992px) {
+    .google-drive-modal {
+        .modal-lg,
+        .modal-xl {
+            max-width:800px
+        }
+    }
+}
+@media(min-width: 1200px) {
+    .google-drive-modal {
+        .modal-xl {
+            max-width:1140px
+        }
+    }
+}
+
+@media(max-width: 575.98px) {
+    .google-drive-modal {
+        .modal-fullscreen-sm-down {
+            width:100vw;
+            max-width:none;
+            height:100%;
+            margin:0
+        }
+        .modal-fullscreen-sm-down .modal-content {
+            height:100%;
+            border:0;
+            border-radius:0
+        }
+        .modal-fullscreen-sm-down .modal-header {
+            border-radius:0
+        }
+        .modal-fullscreen-sm-down .modal-body {
+            overflow-y:auto
+        }
+        .modal-fullscreen-sm-down .modal-footer {
+            border-radius:0
+        }
+    }
+}
+@media(max-width: 767.98px) {
+    .google-drive-modal {
+        .modal-fullscreen-md-down {
+            width:100vw;
+            max-width:none;
+            height:100%;
+            margin:0
+        }
+        .modal-fullscreen-md-down .modal-content {
+            height:100%;
+            border:0;
+            border-radius:0
+        }
+        .modal-fullscreen-md-down .modal-header {
+            border-radius:0
+        }
+        .modal-fullscreen-md-down .modal-body {
+            overflow-y:auto
+        }
+        .modal-fullscreen-md-down .modal-footer {
+            border-radius:0
+        }
+    }
+}
+@media(max-width: 991.98px) {
+    .google-drive-modal {
+        .modal-fullscreen-lg-down {
+            width:100vw;
+            max-width:none;
+            height:100%;
+            margin:0
+        }
+        .modal-fullscreen-lg-down .modal-content {
+            height:100%;
+            border:0;
+            border-radius:0
+        }
+        .modal-fullscreen-lg-down .modal-header {
+            border-radius:0
+        }
+        .modal-fullscreen-lg-down .modal-body {
+            overflow-y:auto
+        }
+        .modal-fullscreen-lg-down .modal-footer {
+            border-radius:0
+        }
+    }
+}
+@media(max-width: 1199.98px) {
+    .google-drive-modal {
+        .modal-fullscreen-xl-down {
+            width:100vw;
+            max-width:none;
+            height:100%;
+            margin:0
+        }
+        .modal-fullscreen-xl-down .modal-content {
+            height:100%;
+            border:0;
+            border-radius:0
+        }
+        .modal-fullscreen-xl-down .modal-header {
+            border-radius:0
+        }
+        .modal-fullscreen-xl-down .modal-body {
+            overflow-y:auto
+        }
+        .modal-fullscreen-xl-down .modal-footer {
+            border-radius:0
+        }
+    }
+}
+@media(max-width: 1399.98px) {
+    .google-drive-modal {
+        .modal-fullscreen-xxl-down {
+            width:100vw;
+            max-width:none;
+            height:100%;
+            margin:0
+        }
+        .modal-fullscreen-xxl-down .modal-content {
+            height:100%;
+            border:0;
+            border-radius:0
+        }
+        .modal-fullscreen-xxl-down .modal-header {
+            border-radius:0
+        }
+        .modal-fullscreen-xxl-down .modal-body {
+            overflow-y:auto
+        }
+        .modal-fullscreen-xxl-down .modal-footer {
+            border-radius:0
+        }
+    }
+}

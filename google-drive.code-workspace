@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../google-api-javascript-client-master"
+		}
+	],
+	"settings": {}
+}
